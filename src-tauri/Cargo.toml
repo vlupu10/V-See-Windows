@@ -3,7 +3,7 @@ name = "v-see-windows"
 version = "0.1.0"
 description = "V-See Windows - High-performance desktop photo viewer"
 authors = ["Viorel LUPU"]
-license = ""
+license = "MIT"
 repository = ""
 edition = "2021"
 
