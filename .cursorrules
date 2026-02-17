@@ -7,6 +7,12 @@
 - **Platform**: Windows only
 - **Reason**: Mac version uses PyQt6 with QtMultimedia which doesn't work on Windows. Separate codebase allows platform-specific optimizations.
 
+### Python Usage (if needed)
+- **If Python is used** (for build scripts, tooling, or helper scripts): Always use conda environments
+- **Conda**: Miniconda is installed on the machine
+- **Isolation**: Use conda environments to keep projects clean and isolated from system Python and other projects
+- **Note**: Main application is Rust + Web frontend, Python is only for auxiliary tooling if needed
+
 ### Reference Projects
 - **Project-V-See** (`C:/projects/Project-V-See`): Mac version - reference for business requirements and architecture
 - **vio-python** (`C:/projects/vio-python`): Audio playback library - reference for audio requirements
