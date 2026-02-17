@@ -12,6 +12,13 @@
 - **Modern UI**: Web frontend allows for modern, responsive UI development
 - **Cross-platform foundation**: While Windows-only initially, Tauri makes future cross-platform expansion easier
 
+### Python Usage (if needed)
+- **If Python is used** for build scripts, tooling, or helper scripts:
+  - **Always use conda environments** (Miniconda is installed)
+  - Keep projects isolated from system Python and other Python projects
+  - Create project-specific conda environments for any Python tooling
+- **Note**: Main application is Rust backend + Web frontend (JavaScript/TypeScript), Python is only for auxiliary tooling if needed
+
 ### Architecture Layers
 
 ```
