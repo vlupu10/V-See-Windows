@@ -29,6 +29,11 @@ V-See is a high-performance desktop photo viewer with three main modes:
 
 See the Mac version repository for detailed feature specifications and architecture documentation.
 
+## Documentation
+
+- **[User Guide](docs/USER-GUIDE.md)** — How to install V-See (MSI or from source) and how to use the application (browsing, preview, viewer, music, slideshow).
+- **[Install test guide](docs/INSTALL-TEST.md)** — Step-by-step procedure to test building the MSI, running the installer, and verifying the installed app.
+
 ## Getting Started
 
 ### Prerequisites

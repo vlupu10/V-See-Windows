@@ -267,23 +267,14 @@ export function createFolderTree(container, label, onSelect, onError, initialPat
 
     /** Expand the tree to the given path and select that folder. Call after loadRoots(). Invalid paths are ignored. */
     async function expandAndSelectPath(fullPath) {
-        const log = typeof window !== 'undefined' && window.vseeLog ? window.vseeLog : { debug: () => {}, warn: () => {} };
         const segments = getPathSegments(fullPath);
-        log.debug('FolderTree', 'expandAndSelectPath', fullPath, 'segments:', segments);
-        if (segments.length === 0) {
-            log.warn('FolderTree', 'expandAndSelectPath: no segments for', fullPath);
-            return;
-        }
+        if (segments.length === 0) return;
         let parentUl = treeEl;
         let lastLi = null;
         for (const seg of segments) {
             const lis = Array.from(parentUl.children).filter((el) => el.getAttribute('data-path'));
             const li = lis.find((el) => pathEquals(el.getAttribute('data-path'), seg));
-            if (!li) {
-                const available = lis.map((el) => el.getAttribute('data-path'));
-                log.warn('FolderTree', 'segment not found', { fullPath, segment: seg, available });
-                return;
-            }
+            if (!li) return;
             lastLi = li;
             const path = li.getAttribute('data-path');
             await expandNode(li, path);
@@ -293,7 +284,6 @@ export function createFolderTree(container, label, onSelect, onError, initialPat
         if (lastLi) {
             selectNode(lastLi);
             onSelect(fullPath, { programmatic: true });
-            log.debug('FolderTree', 'expandAndSelectPath OK', fullPath);
         }
     }
 

@@ -9,8 +9,9 @@ mod commands;
 use commands::{
     debug_log, get_all_persisted, get_debug_log_path, get_folder_roots, get_persistence_db_path,
     get_persisted, get_parent_path, get_video_thumbnail_data_url, get_viewer_context, list_directory,
-    open_viewer_window, pause_audio, play_audio, read_file_as_audio_url, read_file_as_data_url,
-    set_persisted, stop_audio, viewer_next, viewer_prev, AudioState, PersistenceState, ViewerState,
+    open_help_window, open_viewer_window, pause_audio, play_audio, read_file_as_audio_url,
+    read_file_as_data_url, set_persisted, stop_audio, viewer_next, viewer_prev, AudioState,
+    PersistenceState, ViewerState,
 };
 
 fn main() {
@@ -30,6 +31,7 @@ fn main() {
             read_file_as_data_url,
             read_file_as_audio_url,
             get_video_thumbnail_data_url,
+            open_help_window,
             open_viewer_window,
             get_viewer_context,
             viewer_prev,

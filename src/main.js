@@ -103,7 +103,6 @@ function showPreview(filePath, name) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('V-See app started');
     const photosContainer = document.getElementById('photos-folder-tree');
     const musicContainer = document.getElementById('music-folder-tree');
     const thumbGrid = document.getElementById('thumbnails-grid');
@@ -138,9 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             lastMusicFolder = typeof music === 'string' && music.trim() ? music.trim() : null;
             lastSelectedFile = typeof file === 'string' && file.trim() ? file.trim() : null;
             lastSelectedTrack = typeof track === 'string' && track.trim() ? track.trim() : null;
-            console.log('Persistence loaded:', { lastFolder, lastMusicFolder, lastSelectedFile, lastSelectedTrack });
-        } catch (e) {
-            console.warn('Persistence load failed:', e);
+        } catch (_e) {
         }
     }
 
@@ -148,9 +145,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let pendingRestoreSelectedTrack = lastSelectedTrack;
     const folderToRestore = lastSelectedFile ? dirname(lastSelectedFile) : lastFolder;
     const musicFolderToRestore = lastSelectedTrack ? dirname(lastSelectedTrack) : lastMusicFolder;
-    if (typeof window !== 'undefined' && window.vseeLog) {
-        window.vseeLog.debug('Main', 'restore paths', { folderToRestore: folderToRestore || '(none)', musicFolderToRestore: musicFolderToRestore || '(none)' });
-    }
 
     /** In-memory current selection so we can persist on close even if last async persist didn't complete. */
     let currentPhotosFolder = folderToRestore || '';
@@ -164,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (v === '') return;
         const inv = window.__TAURI__?.core?.invoke;
         if (typeof inv !== 'function') return;
-        inv('set_persisted', { key, value: v }).catch((e) => console.warn('set_persisted', key, 'failed:', e));
+        inv('set_persisted', { key, value: v }).catch(() => {});
     }
 
     let selectedTrackPath = null;
@@ -346,35 +340,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }).catch(() => {});
     }
 
-    const inv = () => window.__TAURI__?.core?.invoke;
     if (helpBtn) {
         helpBtn.addEventListener('click', async () => {
-            const fn = inv();
-            if (typeof fn !== 'function') {
-                setHelpMessage('Help content will go here.');
+            const inv = window.__TAURI__?.core?.invoke;
+            if (typeof inv !== 'function') {
+                setHelpMessage('Help window requires the app.');
                 return;
             }
             try {
-                const state = await fn('get_all_persisted');
-                const logPath = await fn('get_debug_log_path');
-                let msg = 'State DB: ' + (state?.db_path || '?') + '\n';
-                if (state?.entries?.length) {
-                    state.entries.forEach((e) => {
-                        const v = (e.value && e.value.length > 80) ? e.value.slice(0, 77) + '...' : (e.value || '');
-                        msg += e.key + ': ' + v + '\n';
-                    });
-                } else {
-                    msg += '(no entries yet)\n';
-                }
-                if (logPath) msg += 'Log file: ' + logPath;
-                setHelpMessage(msg.trim());
+                await inv('open_help_window');
             } catch (e) {
-                try {
-                    const dbPath = await fn('get_persistence_db_path');
-                    setHelpMessage('State DB: ' + (dbPath || '?') + '\n(empty or error: ' + (e?.message || e) + ')');
-                } catch (_) {
-                    setHelpMessage('Could not load state: ' + (e?.message || e));
-                }
+                setHelpMessage('Could not open help: ' + (e?.message || e), true);
             }
         });
     }

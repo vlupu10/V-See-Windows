@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "powershell -NoProfile -Command \"$env:Path = \\\"$env:USERPROFILE\\.cargo\\bin;$env:Path\\\"; npx tauri dev\"",
     "build": "tauri build",
+    "build:release": "powershell -NoProfile -Command \"$env:Path = \\\"$env:USERPROFILE\\.cargo\\bin;$env:Path\\\"; npx tauri build\"",
     "tauri": "tauri",
     "icons": "node scripts/generate-icons.cjs"
   },
