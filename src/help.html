@@ -6,14 +6,13 @@
     <title>V-See – Help</title>
     <link rel="stylesheet" href="styles/main.css">
     <style>
-        .help-root { padding: 16px 20px; max-width: 56em; margin: 0 auto; box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; overflow-y: auto; overflow-x: hidden; box-sizing: border-box; }
+        .help-root { padding: 16px 20px; max-width: 56em; margin: 0 auto; box-sizing: border-box; padding-bottom: 2em; }
         .help-root h2 { margin-top: 0; color: var(--color-text, #e0e0e0); }
         .help-root h3 { margin-top: 1.2em; color: var(--color-text, #e0e0e0); }
         .help-root p, .help-root ul { color: #bbb; line-height: 1.5; }
         .help-root ul { padding-left: 1.5em; }
         .help-root li { margin-bottom: 0.4em; }
-        .help-close-wrap { margin-top: 1.5em; }
-        .help-close-wrap button { padding: 8px 16px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -48,18 +47,6 @@
             <li>Last folders and window positions are remembered on next run.</li>
             <li>If a folder path becomes invalid (e.g. external drive disconnected), the app falls back to a safe location instead of crashing.</li>
         </ul>
-
-        <div class="help-close-wrap">
-            <button type="button" id="help-close-btn">Close</button>
-        </div>
     </div>
-    <script>
-        document.getElementById('help-close-btn').addEventListener('click', function () {
-            var getCurrent = window.__TAURI__?.window?.getCurrent;
-            if (typeof getCurrent === 'function') {
-                getCurrent().then(function (w) { if (w && w.close) w.close(); }).catch(function () {});
-            }
-        });
-    </script>
 </body>
 </html>
