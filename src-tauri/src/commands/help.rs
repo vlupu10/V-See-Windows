@@ -1,7 +1,7 @@
 // Author: Viorel LUPU
 // Purpose: Open the Help window (static HTML from Project-V-See help_dialog.py).
 
-use tauri::{AppHandle, WebviewUrl, WebviewWindowBuilder};
+use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindowBuilder};
 
 /// Opens the Help window. If it already exists, focuses it.
 #[tauri::command]
