@@ -1,0 +1,137 @@
+# V-See Windows - Cursor Rules
+
+## Project Strategy
+
+### Technology Stack
+- **Framework**: Tauri (Rust + Web frontend)
+- **Platform**: Windows only
+- **Reason**: Mac version uses PyQt6 with QtMultimedia which doesn't work on Windows. Separate codebase allows platform-specific optimizations.
+
+### Python Usage (if needed)
+- **If Python is used** (for build scripts, tooling, or helper scripts): Always use conda environments
+- **Conda**: Miniconda is installed on the machine
+- **Isolation**: Use conda environments to keep projects clean and isolated from system Python and other projects
+- **Note**: Main application is Rust + Web frontend, Python is only for auxiliary tooling if needed
+
+### Reference Projects
+- **Project-V-See** (`C:/projects/Project-V-See`): Mac version - reference for business requirements and architecture
+- **vio-python** (`C:/projects/vio-python`): Audio playback library - reference for audio requirements
+
+### Development Approach
+- Rebuild Windows version from scratch using Tauri
+- Reuse code/logic where it makes sense (e.g., business logic, algorithms)
+- Reference Mac version for feature requirements and user experience
+- Keep codebases separate to avoid cross-platform compromises
+
+## Code Organization
+
+### Structure (similar to Project-V-See)
+- **Components**: UI components/widgets (self-contained, reusable)
+- **Services**: Backend logic (non-UI, business logic)
+- **Config**: Application-wide settings and constants
+- Clear separation between UI and business logic
+
+### File Organization
+- Group related functionality together
+- Use clear, descriptive names
+- Follow a consistent directory structure
+- Keep components independent and testable
+
+## Code Documentation Standards
+
+### File Header (Every new file)
+```rust
+// Author: [Your Name]
+// Date: [YYYY-MM-DD]
+// Purpose: [Brief description of what this file does]
+```
+
+### Class Documentation (Every class)
+```rust
+/// Purpose: [What this class does]
+/// Usage: [How to use this class]
+/// Reason for choice: [Why this approach was chosen]
+```
+
+### Function Documentation (Every function)
+```rust
+/// [Clear explanation of what the function does]
+/// 
+/// [Additional details about parameters, return values, side effects]
+```
+
+## Business Requirements (from Project-V-See)
+
+### Application Modes
+1. **Manage Mode**: Three-pane browser
+   - Left: Folder trees (Photos + Music, independent)
+   - Center: Thumbnail grid (images and videos)
+   - Right/Bottom: Preview/Metadata pane
+   - Music player controls below Music folder tree
+
+2. **View Mode**: Full-screen single image viewer
+   - Prev/Next navigation with wrap-around
+   - Slideshow ON/OFF toggle
+   - Configure Slideshow dialog
+   - Stop music button
+
+3. **Slideshow Mode**: Auto-advance with optional music
+   - Configurable interval (1-3600 seconds)
+   - Music options: None, All songs, Specific song
+   - Video duration: First 5 seconds or full video
+   - Music auto-starts when slideshow runs
+
+### Key Features
+- **Lazy folder tree**: Only load children when expanded
+- **Asynchronous thumbnails**: Generate thumbnails in background
+- **Video support**: Thumbnails and playback (MP4, MOV, M4V, WebM)
+- **Audio support**: MP3 player with playlist from selected music folder
+- **Persistence**: Save last folders, window geometry, slideshow settings
+- **Robust error handling**: Handle disconnected drives, invalid paths gracefully
+
+### Technical Requirements
+- Fast, responsive UI (lazy loading, async operations)
+- Handle large folders efficiently
+- Restore state on startup (last folders, window positions)
+- Graceful degradation for missing features (e.g., video playback)
+
+## Coding Best Practices
+
+### General
+- Write clear, self-documenting code
+- Use meaningful variable and function names
+- Keep functions focused and single-purpose
+- Handle errors gracefully with user-friendly messages
+- Avoid blocking the UI thread
+
+### Tauri-Specific
+- Use Tauri commands for backend operations
+- Leverage Rust for performance-critical code
+- Use frontend (HTML/CSS/JS) for UI rendering
+- Follow Tauri security best practices
+- Use Tauri's file system APIs appropriately
+
+### Architecture
+- Separate concerns: UI vs business logic
+- Use services for reusable business logic
+- Components should be self-contained
+- Minimize coupling between components
+- Make code testable
+
+## Git Workflow
+
+### Branches
+- **main**: Protected - no direct commits allowed (use pre-commit hook)
+- **develop**: All development work happens here
+- **feature/***: Feature branches created from develop
+
+### Commit Messages
+- Use clear, descriptive commit messages
+- Reference issues/features when applicable
+
+## Notes
+
+- Mac version (Project-V-See) works well - use as reference only
+- Windows version needs to achieve feature parity but with Tauri
+- Video playback was the main issue - Tauri should provide better cross-platform video support
+- Audio playback requirements are in vio-python - may need Rust equivalent or FFI bridge

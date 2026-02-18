@@ -1,0 +1,461 @@
+/* Author: Viorel LUPU */
+/* Date: 2026-02-17 */
+/* Purpose: Main stylesheet for V-See Windows - layout per annotated design */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* ========== Splitters ========== */
+.splitter-v {
+    width: 6px;
+    min-width: 6px;
+    flex-shrink: 0;
+    background: #333;
+    cursor: col-resize;
+    position: relative;
+}
+.splitter-v:hover,
+.splitter-v.dragging {
+    background: #094771;
+}
+.splitter-h {
+    height: 6px;
+    min-height: 6px;
+    flex-shrink: 0;
+    background: #333;
+    cursor: row-resize;
+    position: relative;
+}
+.splitter-h:hover,
+.splitter-h.dragging {
+    background: #094771;
+}
+
+/* ========== LEFT PANEL: 4 sections (resizable) ========== */
+#left-panel {
+    width: 280px;
+    min-width: 200px;
+    max-width: 60%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #333;
+    background-color: #252526;
+    overflow: hidden;
+}
+
+.left-section {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* 1) Photos folder tree */
+#photos-folder-tree {
+    flex: 1 1 0;
+    min-height: 80px;
+    overflow: auto;
+}
+
+/* 2) Music folder tree */
+#music-folder-tree {
+    flex: 1 1 0;
+    min-height: 80px;
+    overflow: auto;
+}
+
+/* 3) Playable files list */
+#playable-files {
+    flex: 1 1 0;
+    min-height: 80px;
+    overflow: hidden;
+}
+
+#playable-files .scroll-area {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.playable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.playable-item {
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.playable-item:hover {
+    background-color: #2a2d2e;
+}
+
+.playable-item.selected {
+    background-color: #094771;
+    color: #fff;
+}
+
+/* 4) MP3 player */
+#player-audio {
+    position: absolute;
+    left: -9999px;
+    width: 0;
+    height: 0;
+}
+
+#player-controls {
+    flex: 0 0 auto;
+    border-bottom: none;
+    padding: 8px;
+}
+
+.player-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+#player-progress {
+    flex: 1;
+    min-width: 0;
+    height: 6px;
+    accent-color: #094771;
+    cursor: pointer;
+}
+
+.player-time {
+    font-size: 0.7rem;
+    color: #888;
+    white-space: nowrap;
+}
+
+.player-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.player-toolbar button {
+    width: 32px;
+    height: 28px;
+    border: 1px solid #555;
+    background: #333;
+    color: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.player-toolbar button:hover {
+    background: #3c3c3c;
+}
+
+.vol-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-left: 4px;
+}
+
+.player-toolbar input[type="range"] {
+    width: 80px;
+    accent-color: #094771;
+}
+
+/* ========== RIGHT PANEL: 3 sections ========== */
+#right-panel {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    overflow: hidden;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 8px 8px 8px 8px;
+}
+
+.right-section .pane-title {
+    margin-bottom: 6px;
+}
+
+/* 1) Thumbnails (Files) */
+#thumbnails-section {
+    flex: 1;
+    min-height: 120px;
+}
+
+#thumbnails-section .scroll-area {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.thumbnails-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    padding: 8px;
+}
+
+.thumbnail-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 4px;
+    background: #252526;
+}
+
+.thumbnail-cell:hover {
+    border-color: #555;
+}
+
+.thumbnail-cell.selected {
+    border-color: #094771;
+}
+
+.thumbnail-cell img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.thumbnail-placeholder {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    border-radius: 4px;
+    color: #888;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.thumbnail-label {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 4px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* 2) Viewer (Preview / Metadata) */
+#viewer-section {
+    flex: 1;
+    min-height: 160px;
+    border-top: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.viewer-area {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    background-color: #252526;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.viewer-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.viewer-area .viewer-video,
+.viewer-area video {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    object-fit: contain;
+}
+
+/* 3) Help section (bottom; also for errors) */
+#help-section {
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-top: 1px solid #333;
+    background-color: #252526;
+}
+
+.help-message {
+    flex: 1;
+    font-size: 0.8rem;
+    color: #888;
+    min-height: 1.2em;
+    white-space: pre-wrap;
+    overflow: auto;
+    max-height: 120px;
+}
+
+.help-message.error {
+    color: #f48771;
+}
+
+.help-btn {
+    flex-shrink: 0;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    border: 1px solid #555;
+    background: #333;
+    color: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.help-btn:hover {
+    background: #3c3c3c;
+}
+
+/* ========== Shared: pane titles ========== */
+.pane-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    padding: 0;
+    margin: 0 0 6px 0;
+}
+
+/* ========== Folder tree (used inside left sections) ========== */
+.folder-tree-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.folder-tree-container .folder-tree-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    padding-left: 4px;
+}
+
+.folder-tree-refresh {
+    flex-shrink: 0;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    border: 1px solid #555;
+    background: #333;
+    color: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.folder-tree-refresh:hover {
+    background: #3c3c3c;
+}
+
+.folder-tree {
+    list-style: none;
+}
+
+.folder-tree ul {
+    list-style: none;
+}
+
+.folder-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+.folder-tree-item:hover {
+    background-color: #2a2d2e;
+}
+
+.folder-tree-item.selected {
+    background-color: #094771;
+    color: #fff;
+}
+
+.folder-tree-arrow {
+    font-size: 0.6rem;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.folder-tree-children {
+    margin-left: 0;
+}
+
+.folder-tree-loading {
+    color: #888;
+    font-size: 0.85rem;
+    padding: 8px;
+}
+
+.folder-tree-error {
+    color: #f48771;
+    font-size: 0.85rem;
+    padding: 8px;
+}
+
+.folder-tree-retry {
+    cursor: pointer;
+}
+
+.folder-tree-retry:hover {
+    text-decoration: underline;
+}
+
+/* Placeholders */
+.placeholder {
+    color: #666;
+    font-size: 0.9rem;
+}

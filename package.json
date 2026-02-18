@@ -1,0 +1,20 @@
+{
+  "name": "v-see-windows",
+  "version": "0.1.0",
+  "description": "V-See Windows - High-performance desktop photo viewer built with Tauri",
+  "type": "module",
+  "scripts": {
+    "dev": "powershell -NoProfile -Command \"$env:Path = \\\"$env:USERPROFILE\\.cargo\\bin;$env:Path\\\"; npx tauri dev\"",
+    "build": "tauri build",
+    "tauri": "tauri",
+    "icons": "node scripts/generate-icons.cjs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/cli": "^2",
+    "png-to-ico": "^3",
+    "pngjs": "^7",
+    "serve": "^14"
+  }
+}
