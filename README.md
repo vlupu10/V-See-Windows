@@ -31,7 +31,41 @@ See the Mac version repository for detailed feature specifications and architect
 
 ## Getting Started
 
-This project is in early development. Setup instructions will be added as the Tauri project structure is established.
+### Prerequisites
+
+- **Node.js** and npm
+- **Rust** (install from [rustup.rs](https://rustup.rs/)). After installing, **open a new terminal** so `cargo` is on your PATH (or restart Cursor).
+- **Windows**: WebView2 is usually already installed on Windows 10/11.
+
+### Run in development
+
+**Always run from the project root** (the folder that contains `src-tauri` and `package.json`). Otherwise you'll get: *"Couldn't recognize the current folder as a Tauri project"*.
+
+**From Cursor terminal** (PATH often doesn’t include Rust): run `npm run dev` — it sets PATH for the command so `cargo` is found without changing the terminal:
+
+```powershell
+cd C:\Projects\Project-V-See-Windows
+npm run dev
+```
+
+Alternatively use the script: `.\scripts\run-dev.ps1`
+
+Or from any terminal where `cargo` is already on PATH:
+
+```powershell
+cd C:\Projects\Project-V-See-Windows
+npm install
+npm run tauri dev
+```
+
+Or with Cargo directly:
+
+```powershell
+cd C:\Projects\Project-V-See-Windows
+cargo tauri dev
+```
+
+The first run starts a small static server on port 1420 and builds the Rust backend (may take a few minutes). If `cargo` is not recognized outside the script, restart the terminal after installing Rust, or use `.\scripts\run-dev.ps1`.
 
 ## Reference Projects
 

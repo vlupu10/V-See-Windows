@@ -8,9 +8,60 @@
 </head>
 <body>
     <div id="app">
-        <h1>V-See Windows</h1>
-        <p>Photo viewer application</p>
+        <!-- Left panel (resizable width via splitter) -->
+        <aside id="left-panel">
+            <section id="photos-folder-tree" class="left-section folder-tree-container"></section>
+            <div class="splitter-h" id="splitter-left-1" title="Drag to resize"></div>
+            <section id="music-folder-tree" class="left-section folder-tree-container"></section>
+            <div class="splitter-h" id="splitter-left-2" title="Drag to resize"></div>
+            <section id="playable-files" class="left-section">
+                <h2 class="pane-title">Playable files:</h2>
+                <div id="playable-files-list" class="scroll-area">
+                    <p class="placeholder">Select a music folder</p>
+                </div>
+            </section>
+            <div class="splitter-h" id="splitter-left-3" title="Drag to resize"></div>
+            <section id="player-controls" class="left-section">
+                <audio id="player-audio" preload="metadata"></audio>
+                <div class="player-progress-wrap">
+                    <input type="range" id="player-progress" min="0" max="100" value="0" title="Seek">
+                    <span id="player-time" class="player-time" aria-live="off">0:00 / 0:00</span>
+                </div>
+                <div id="player-buttons" class="player-toolbar">
+                    <button type="button" id="player-prev" title="Previous">&#x23EE;</button>
+                    <button type="button" id="player-play" title="Play" data-icon="play">&#x25B6;</button>
+                    <button type="button" id="player-stop" title="Stop">&#x25A0;</button>
+                    <button type="button" id="player-next" title="Next">&#x23ED;</button>
+                    <span class="vol-label">Vol</span>
+                    <input type="range" id="volume" min="0" max="100" value="80" title="Volume">
+                </div>
+            </section>
+        </aside>
+        <div class="splitter-v" id="splitter-main" title="Drag to resize panels"></div>
+        <!-- Right panel -->
+        <main id="right-panel">
+            <section id="thumbnails-section" class="right-section">
+                <h2 class="pane-title">Files</h2>
+                <div id="thumbnails-grid" class="scroll-area">
+                    <p class="placeholder">Select a folder to see thumbnails</p>
+                </div>
+            </section>
+            <div class="splitter-h" id="splitter-right-1" title="Drag to resize"></div>
+            <section id="viewer-section" class="right-section">
+                <h2 class="pane-title">Preview / Metadata</h2>
+                <div id="viewer-content" class="viewer-area">
+                    <p class="placeholder">Select a file for preview</p>
+                </div>
+            </section>
+            <div class="splitter-h" id="splitter-right-2" title="Drag to resize"></div>
+            <section id="help-section" class="right-section help-panel">
+                <div id="help-message" class="help-message" aria-live="polite"></div>
+                <button type="button" id="help-btn" class="help-btn">Help</button>
+            </section>
+        </main>
     </div>
+    <script src="scripts/debug.js"></script>
+    <script src="scripts/splitters.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html>
